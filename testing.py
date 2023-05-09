@@ -8,13 +8,7 @@ import torchvision.transforms as transforms
 def size_of_tensor_in_bytes(encoding):
     return encoding.nelement() * encoding.element_size()
 
-def stress_vram_transfer(
-        batch_size=256,
-        warmup=5,
-        repeats=1000,
-        frame_shape=(3, 3840, 2160),
-        use_pinned_memory=True,
-):
+def create_batch(batch_size):
     normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
     preprocess_pipeline = transforms.Compose(
          [
@@ -36,9 +30,20 @@ def stress_vram_transfer(
     for i in range(0,batch_size):  
         imgs.append(img)
 
-    tensor = torch.stack(imgs)
+    return torch.stack(imgs)
 
-    print(f"Batch Size: {size_of_tensor_in_bytes(tensor)}")
+def stress_vram_transfer(
+        batch_size=10,
+        warmup=5,
+        repeats=100,
+        frame_shape=(3, 3840, 2160),
+        use_pinned_memory=True,
+):
+    
+    tensor = torch.randn((batch_size, *frame_shape))
+
+
+    print(f"Batch Size (Mb): {size_of_tensor_in_bytes(tensor)/1024/1024}")
 
     if use_pinned_memory:
         tensor = tensor.pin_memory()
