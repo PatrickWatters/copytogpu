@@ -69,7 +69,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("--batch_size", type=int, default=128)
     parser.add_argument("--warmup", type=int, default=5)
-    parser.add_argument("--repeats", type=int, default=1000)
+    parser.add_argument("--repeats", type=int, default=5000000)
     parser.add_argument("--frame_shape", type=int, nargs=3, default=(3, 3840, 2160))
     parser.add_argument("--use_pinned_memory", type=bool, default=True)
     parser.add_argument('--no_pin', dest='use_pinned_memory', action='store_false')
