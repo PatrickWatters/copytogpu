@@ -58,7 +58,7 @@ def stress_vram_transfer(
         start = time.perf_counter()
         for _ in trange(repeats, desc="test"):
             tensor = tensor.to(device=device_id, non_blocking=use_pinned_memory)
-            #tensor = tensor.to(device="cpu", non_blocking=use_pinned_memory)
+            tensor = tensor.to(device="cpu", non_blocking=use_pinned_memory)
             if use_pinned_memory:
                 torch.cuda.current_stream(device=device_id).synchronize()
         end = time.perf_counter()
