@@ -3,6 +3,7 @@ import time
 from PIL import Image
 import torch
 from tqdm import trange
+import torchvision.transforms as transforms
 
 
 def stress_vram_transfer(
@@ -12,10 +13,23 @@ def stress_vram_transfer(
         frame_shape=(3, 3840, 2160),
         use_pinned_memory=True,
 ):
+    normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+    preprocess_pipeline = transforms.Compose(
+         [
+         #transforms.Resize(256), 
+         #transforms.CenterCrop(224), 
+         transforms.ToTensor(), 
+         normalize
+         ]
+    )
     img = Image.open('leopard_frog_s_001876.png')
 
     if img.mode == "L":
-        img = img.convert("RGB")   
+        img = img.convert("RGB")  
+
+    if preprocess_pipeline is not None:
+        img = preprocess_pipeline(img)
+
     imgs =[]    
     for i in range(0,batch_size):  
         imgs.append(img)
