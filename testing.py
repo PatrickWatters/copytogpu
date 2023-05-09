@@ -35,12 +35,12 @@ def create_batch(batch_size):
 def stress_vram_transfer(
         batch_size=512,
         warmup=5,
-        repeats=100,
+        repeats=1000000,
         frame_shape=(3, 3840, 2160),
         use_pinned_memory=True,
 ):
-    #tensor = create_batch(256)
-    tensor = torch.randn((batch_size, *frame_shape))
+    tensor = create_batch(256)
+    #tensor = torch.randn((batch_size, *frame_shape))
 
 
     print(f"Batch Size(Mb): {size_of_tensor_in_bytes(tensor)/1024/1024}")
