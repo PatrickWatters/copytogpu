@@ -13,7 +13,7 @@ def create_batch(batch_size):
     preprocess_pipeline = transforms.Compose(
          [
          transforms.Resize(256), 
-         transforms.CenterCrop(224), 
+         transforms.CenterCrop(3840), 
          transforms.ToTensor(), 
          normalize
          ]
@@ -33,14 +33,14 @@ def create_batch(batch_size):
     return torch.stack(imgs)
 
 def stress_vram_transfer(
-        batch_size=10,
+        batch_size=256,
         warmup=5,
-        repeats=100,
+        repeats=10000,
         frame_shape=(3, 3840, 2160),
         use_pinned_memory=True,
 ):
-    
-    tensor = torch.randn((batch_size, *frame_shape))
+    tensor = create_batch(batch_size)
+    #tensor = torch.randn((batch_size, *frame_shape))
 
 
     print(f"Batch Size (Mb): {size_of_tensor_in_bytes(tensor)/1024/1024}")
