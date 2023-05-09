@@ -13,7 +13,7 @@ def create_batch(batch_size):
     preprocess_pipeline = transforms.Compose(
          [
          transforms.Resize(256), 
-         transforms.CenterCrop(3840), 
+         #transforms.CenterCrop(256), 
          transforms.ToTensor(), 
          normalize
          ]
