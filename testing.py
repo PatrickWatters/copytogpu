@@ -1,18 +1,27 @@
 import argparse
 import time
-
+from PIL import Image
 import torch
 from tqdm import trange
 
 
 def stress_vram_transfer(
-        batch_size=10,
+        batch_size=256,
         warmup=5,
         repeats=100,
         frame_shape=(3, 3840, 2160),
         use_pinned_memory=True,
 ):
-    tensor = torch.randn((batch_size, *frame_shape))
+    img = Image.open('leopard_frog_s_001876.png')
+
+    if img.mode == "L":
+        img = img.convert("RGB")   
+    imgs =[]    
+    for i in range(0,batch_size):  
+        imgs.append(img)
+
+    tensor = torch.stack(imgs)
+
     if use_pinned_memory:
         tensor = tensor.pin_memory()
 
