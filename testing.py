@@ -43,7 +43,7 @@ def stress_vram_transfer(
     tensor = torch.randn((batch_size, *frame_shape))
 
 
-    print(f"Batch Size (Mb): {size_of_tensor_in_bytes(tensor)/1024/1024}")
+    print(f"Batch Size(Mb): {size_of_tensor_in_bytes(tensor)/1024/1024}")
 
     if use_pinned_memory:
         tensor = tensor.pin_memory()
