@@ -35,7 +35,7 @@ def create_batch(batch_size):
 def stress_vram_transfer(
         batch_size=512,
         warmup=5,
-        repeats=100,
+        repeats=1000000,
         frame_shape=(3, 3840, 2160),
         use_pinned_memory=True,
 ):
