@@ -11,7 +11,7 @@ def size_of_tensor_in_bytes(encoding):
 def stress_vram_transfer(
         batch_size=256,
         warmup=5,
-        repeats=100,
+        repeats=1000,
         frame_shape=(3, 3840, 2160),
         use_pinned_memory=True,
 ):
